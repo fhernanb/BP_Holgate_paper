@@ -132,7 +132,14 @@ dat <- datos %>% group_by(n) %>%
             mean_g1 = mean(g1_hat, na.rm=TRUE, trim=trim),
             mean_d0 = mean(d0_hat, na.rm=TRUE, trim=trim),
             mean_d1 = mean(d1_hat, na.rm=TRUE, trim=trim),
-            mean_l0 = mean(l0_hat, na.rm=TRUE, trim=trim)
+            mean_l0 = mean(l0_hat, na.rm=TRUE, trim=trim),
+            mse_b0 = mean((b0_hat - b0)^2),
+            mse_b1 = mean((b1_hat - b1)^2),
+            mse_g0 = mean((g0_hat - g0)^2),
+            mse_g1 = mean((g1_hat - g1)^2),
+            mse_d0 = mean((d0_hat - d0)^2),
+            mse_d1 = mean((d1_hat - d1)^2),
+            mse_l0 = mean((l0_hat - l0)^2)  
   )
 
 dat
@@ -185,5 +192,48 @@ mean2 <- grid.arrange(p1, p2, p3, p4, p5, p6, p7,
 mean2
 
 ggsave(filename="Figures/mean2.pdf", plot=mean2,
+       width=8, height=10)
+
+# MSE -----------------------------------------------------
+q1 <- ggplot(data=dat, aes(x=n, y=mse_b0)) + 
+  geom_line() + 
+  labs(x = "n", y = expression("MSE " * hat(beta[0]))) +
+  theme(panel.background = element_rect(fill = "white", colour = "black"))
+
+q2 <- ggplot(data=dat, aes(x=n, y=mse_b1)) + 
+  geom_line() +
+  labs(x = "n", y = expression("MSE " * hat(beta[1]))) +
+  theme(panel.background = element_rect(fill = "white", colour = "black"))
+
+q3 <- ggplot(data=dat, aes(x=n, y=mse_g0)) + 
+  geom_line() + 
+  labs(x = "n", y = expression("MSE " * hat(gamma[0]))) +
+  theme(panel.background = element_rect(fill = "white", colour = "black"))
+
+q4 <- ggplot(data=dat, aes(x=n, y=mse_g1)) + 
+  geom_line() + 
+  labs(x = "n", y = expression("MSE " * hat(gamma[1]))) +
+  theme(panel.background = element_rect(fill = "white", colour = "black"))
+
+q5 <- ggplot(data=dat, aes(x=n, y=mse_d0)) + 
+  geom_line() + 
+  labs(x = "n", y = expression("MSE " * hat(delta[0]))) +
+  theme(panel.background = element_rect(fill = "white", colour = "black"))
+
+q6 <- ggplot(data=dat, aes(x=n, y=mse_d1)) + 
+  geom_line() + 
+  labs(x = "n", y = expression("MSE " * hat(delta[1]))) +
+  theme(panel.background = element_rect(fill = "white", colour = "black"))
+
+q7 <- ggplot(data=dat, aes(x=n, y=mse_l0)) + 
+  geom_line() + 
+  labs(x = "n", y = expression("MSE " * hat(lambda[0]))) +
+  theme(panel.background = element_rect(fill = "white", colour = "black"))
+
+mse2 <- grid.arrange(q1, q2, q3, q4, q5, q6, q7,
+                      nrow=4, ncol=2)
+mse2
+
+ggsave(filename="Figures/mse2.pdf", plot=mse2,
        width=8, height=10)
 
