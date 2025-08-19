@@ -36,9 +36,9 @@ parSim(
   ### SIMULATION CONDITIONS
   n = seq(from=10, to=100, by=10),
   
-  reps = 100,                 # Number of repetitions
+  reps = 10,                 # Number of repetitions
   write = TRUE,             # Writing to a file
-  name = "Simulation/Results_sim1_04",  # Name of the file
+  name = "Simulation/Results_sim1_05",  # Name of the file
   nCores = 1,               # Number of cores to use
   
   expression = {
